@@ -1,13 +1,26 @@
-const fs = require('fs');
-const path = require('path');
+const winston = require('winston');
+
+const logFormat = winston.format.combine(
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    winston.format.errors({ stack: true }),
+    winston.format.json()
+);
+
+const logger = winston.createLogger({
+    level: 'info',
+    format: logFormat,
+    transports: [
+        new winston.transports.File({ filename: 'app.log' }),
+        new winston.transports.File({ filename: 'error.log', level: 'error' })
+    ]
+});
 
 const logError = (message, error) => {
-    const logMessage = `[${new Date().toISOString()}] ${message}: ${error}\n`;
-
-    console.error(logMessage);
-
-    const logPath = path.join(__dirname, '../error.log');
-    fs.appendFileSync(logPath, logMessage, 'utf8');
+    logger.error({
+        message,
+        error: error?.message || error,
+        stack: error?.stack
+    });
 };
 
-module.exports = { logError };
+module.exports = { logger, logError };
