@@ -1,12 +1,20 @@
 const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
 const sequelize = new Sequelize(
-    'pc_components_store',
-    'root',
-    '06051225',
+    process.env.DB_NAME || 'pc_components_store',
+    process.env.DB_USER || 'root',
+    process.env.DB_PASSWORD || '06051225',
     {
-        host: 'localhost',
-        dialect: 'mysql'
+        host: process.env.DB_HOST || 'localhost',
+        dialect: 'mysql',
+        logging: process.env.DB_LOGGING === 'true' ? console.log : false,
+        pool: {
+            max: 10,
+            min: 0,
+            acquire: 30000,
+            idle: 10000
+        }
     }
 );
 

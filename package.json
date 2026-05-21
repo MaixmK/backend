@@ -6,11 +6,13 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "pm2:start": "pm2 start server.js --name backend-lab4",
-    "pm2:logs": "pm2 logs backend-lab4",
+    "test": "jest --runInBand",
+    "test:load": "artillery run artillery/products-load.yml",
+    "pm2:start": "pm2 start server.js --name backend-lab5",
+    "pm2:logs": "pm2 logs backend-lab5",
     "pm2:monit": "pm2 monit",
-    "pm2:restart": "pm2 restart backend-lab4",
-    "pm2:stop": "pm2 stop backend-lab4"
+    "pm2:restart": "pm2 restart backend-lab5",
+    "pm2:stop": "pm2 stop backend-lab5"
   },
   "keywords": [],
   "author": "",
@@ -18,12 +20,29 @@
   "type": "commonjs",
   "dependencies": {
     "bcryptjs": "^3.0.3",
+    "compression": "^1.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "express-validator": "^7.3.1",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
     "multer": "^2.1.1",
     "mysql2": "^3.22.0",
+    "node-cache": "^5.1.2",
+    "redis": "^5.10.0",
     "sequelize": "^6.37.8",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "@smithy/config-resolver": "^4.5.2",
+    "@smithy/node-config-provider": "^4.4.2",
+    "artillery": "^2.0.31",
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4"
   }
 }

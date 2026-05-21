@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-const ACCESS_SECRET = 'access_secret_123';
-const REFRESH_SECRET = 'refresh_secret_123';
+const ACCESS_SECRET = process.env.ACCESS_SECRET || 'access_secret_123';
+const REFRESH_SECRET = process.env.REFRESH_SECRET || 'refresh_secret_123';
 
 const generateAccessToken = (user) => {
     return jwt.sign(

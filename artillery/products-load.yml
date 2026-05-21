@@ -1,0 +1,12 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 30
+      arrivalRate: 10
+scenarios:
+  - name: "Products cache and pagination load test"
+    flow:
+      - get:
+          url: "/products?page=1&limit=10&sortBy=price&sortOrder=ASC"
+      - get:
+          url: "/products?page=1&limit=10&sortBy=price&sortOrder=ASC"

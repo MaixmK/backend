@@ -1,0 +1,40 @@
+services:
+  api:
+    build: .
+    container_name: backend-lab5-api
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DB_NAME: pc_components_store
+      DB_USER: root
+      DB_PASSWORD: 06051225
+      DB_HOST: mysql
+      REDIS_ENABLED: "true"
+      REDIS_URL: redis://redis:6379
+      ACCESS_SECRET: change_access_secret
+      REFRESH_SECRET: change_refresh_secret
+    depends_on:
+      - mysql
+      - redis
+
+  mysql:
+    image: mysql:8.0
+    container_name: backend-lab5-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 06051225
+      MYSQL_DATABASE: pc_components_store
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    container_name: backend-lab5-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql_data:
