@@ -21,7 +21,6 @@ const router = express.Router();
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// тимчасове сховище refresh token
 let refreshTokens = [];
 
 /* =========================
